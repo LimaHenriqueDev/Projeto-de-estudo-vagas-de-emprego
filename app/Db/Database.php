@@ -57,6 +57,7 @@ class Database {
     public function execute($query, $params = []) {
         try {
             $statement = $this->connection->prepare($query);
+            //O array $params contém os valores que substituirão os placeholders na consulta preparadas
             $statement->execute($params);
             return $statement;
         }  catch (PDOException $e) {
@@ -80,7 +81,7 @@ class Database {
         //monta a query
         $query = 'INSERT INTO '.$this->table.' ('.implode(',',$fields).') VALUES ('.implode(',',$binds).')';
 
-        //executa o insert
+        //executa o insert 
         $this->execute($query,array_values($values));
         //retorna o id inserido
         return $this->connection->lastInsertId();
